@@ -9,7 +9,7 @@ namespace RentACar.Models
     public class CarType
     {
         public int CarTypeId { get; set; }
-        public string CarTypeName { get; set; }
+        public string Name { get; set; }
 
         public virtual IEnumerable<Car> Cars { get; set; }
     }

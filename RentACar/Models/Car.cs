@@ -21,6 +21,11 @@ namespace RentACar.Models
         public int NumberReserved { get; set; }
         public int NumberInUse { get; set; }
 
+        // Foreign keys
+        public int CarTypeId { get; set; }
+        public int BrandId { get; set; }
+
+        // Relations
         public virtual CarType Type { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual IEnumerable<Rent> Rents { get; set; }
