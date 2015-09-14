@@ -4,12 +4,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace RentACar.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class MyUser : IdentityUser<int, MyUserLogin, MyUserRole, MyUserClaim>
     {
+        public virtual UserDetails UserDetails { get; set; }
+        public virtual IEnumerable<Rent> Rents { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<MyUser, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -54,6 +58,13 @@ namespace RentACar.Models
             : base("DefaultConnection")
         {
         }
+
+        public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<CarType> CarTypes { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Rent> Rents { get; set; }
+        public DbSet<Bill> Bills { get; set; }
 
         public static ApplicationDbContext Create()
         {
