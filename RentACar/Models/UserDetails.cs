@@ -10,6 +10,8 @@ namespace RentACar.Models
 {
     public class UserDetails
     {
+        public UserDetails() { }
+
         [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public string FirstName { get; set; }

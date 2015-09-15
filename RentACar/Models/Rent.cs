@@ -21,7 +21,7 @@ namespace RentACar.Models
 
         // Relations
         public virtual MyUser User { get; set; }
-        public virtual Car Cars { get; set; }
+        public virtual Car Car { get; set; }
         public virtual Bill Bill { get; set; }
     }
 }
