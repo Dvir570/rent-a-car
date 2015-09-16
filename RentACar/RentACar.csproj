@@ -179,6 +179,7 @@
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CarType.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Rent.cs" />
@@ -194,6 +195,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
+    <Content Include="Images\Brands\bmw-logo.png" />
+    <Content Include="Images\Brands\honda-logo.png" />
+    <Content Include="Images\Brands\hyundai-logo.png" />
+    <Content Include="Images\Brands\mercedes-logo.png" />
+    <Content Include="Images\Brands\nissan-logo.png" />
+    <Content Include="Images\Brands\toyota-logo.png" />
+    <Content Include="Images\Carousel\img-1.jpg" />
+    <Content Include="Images\Carousel\img-2.jpg" />
+    <Content Include="Images\Carousel\img-3.jpg" />
+    <Content Include="Images\Logos\in-logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -245,10 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Brands\" />
-    <Folder Include="Images\Carousel\" />
     <Folder Include="Images\Cars\" />
-    <Folder Include="Images\Logos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
