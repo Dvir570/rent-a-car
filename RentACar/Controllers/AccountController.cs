@@ -53,6 +53,63 @@ namespace RentACar.Controllers
         }
 
         //
+        // GET: /Account/Index
+        public ActionResult Index()
+        {
+            return RedirectToAction("Details");
+        }
+
+        //
+        // GET: /Account/Details
+        public ActionResult Details()
+        {
+            ViewBag.SubTitle = "Account details";
+
+            var user = UserManager.FindById(User.Identity.GetUserId<int>());
+
+            var model = new AccountDetailsViewModel
+            {
+                UserName = user.UserName,
+                FirstName = user.UserDetails.FirstName,
+                LastName = user.UserDetails.LastName,
+                Age = user.UserDetails.Age.GetValueOrDefault(),
+                Address = user.UserDetails.Address,
+                City = user.UserDetails.City,
+                Country = user.UserDetails.Country
+            };
+
+            return View(model);
+        }
+        
+        //
+        // POST: /Account/Details
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Details(AccountDetailsViewModel model)
+        {
+            ViewBag.SubTitle = "Account details";
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            MyUser user = UserManager.FindByName<MyUser, int>(model.UserName);
+
+            user.UserDetails.FirstName = model.FirstName;
+            user.UserDetails.LastName = model.LastName;
+            user.UserDetails.Age = model.Age;
+            user.UserDetails.Address = model.Address;
+            user.UserDetails.City = model.City;
+            user.UserDetails.Country = model.Country;
+
+            // Returns result if user is updated or not
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            return View();
+        }
+
+        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -155,6 +212,10 @@ namespace RentACar.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Creating connection with UserDetails table
+                    var userDetails = new UserDetails();
+                    userDetails.Create(user.Id);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

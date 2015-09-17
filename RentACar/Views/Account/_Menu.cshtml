@@ -1,0 +1,7 @@
+﻿<div class="list-group">
+    <div class="list-group-item menu-heading">Account options</div>
+    @Html.ActionLink("Details", "Details", "Account", null, new { @class = "list-group-item" })
+    @Html.ActionLink("Settings", "Settings", "Account", null, new { @class = "list-group-item" })
+    @Html.ActionLink("Recovery", "Recovery", "Account", null, new { @class = "list-group-item" })
+    @Html.ActionLink("Delete account", "DeleteAcount", "Account", null, new { @class = "list-group-item" })
+</div>

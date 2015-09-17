@@ -41,6 +41,7 @@ namespace RentACar.Models
         public MyUserStore(ApplicationDbContext context)
             : base(context)
         {
+
         }
     }
 

@@ -7,9 +7,9 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("My Account", "Index", "Account", routeValues: null, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="navbar-button">Log off</a></li>
     </ul>
     }
 }

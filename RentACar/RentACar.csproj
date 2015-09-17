@@ -195,6 +195,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
+    <Content Include="Images\About\about-1.jpg" />
+    <Content Include="Images\About\about-2.jpg" />
+    <Content Include="Images\About\about-3.jpg" />
     <Content Include="Images\Brands\bmw-logo.png" />
     <Content Include="Images\Brands\honda-logo.png" />
     <Content Include="Images\Brands\hyundai-logo.png" />
@@ -253,10 +256,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Cars\" />
+    <Folder Include="Views\Bill\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
