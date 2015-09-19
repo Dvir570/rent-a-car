@@ -63,7 +63,7 @@ namespace RentACar.Controllers
         // GET: /Account/Details
         public ActionResult Details()
         {
-            ViewBag.SubTitle = "Account details";
+            ViewBag.SubTitle = "Details";
 
             var user = UserManager.FindById(User.Identity.GetUserId<int>());
 
@@ -87,7 +87,7 @@ namespace RentACar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Details(AccountDetailsViewModel model)
         {
-            ViewBag.SubTitle = "Account details";
+            ViewBag.SubTitle = "Details";
 
             if (!ModelState.IsValid)
             {
@@ -106,6 +106,15 @@ namespace RentACar.Controllers
             // Returns result if user is updated or not
             IdentityResult result = await UserManager.UpdateAsync(user);
 
+            return View();
+        }
+
+        //
+        // GET: /Account/Settings
+        public ActionResult Settings(string message)
+        {
+            ViewBag.SubTitle = "Settings";
+            ViewBag.ChangePasswordSuccess = message;
             return View();
         }
 
