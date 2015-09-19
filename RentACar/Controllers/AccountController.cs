@@ -56,105 +56,7 @@ namespace RentACar.Controllers
         // GET: /Account/Index
         public ActionResult Index()
         {
-            return RedirectToAction("Details");
-        }
-
-        //
-        // GET: /Account/Details
-        public ActionResult Details()
-        {
-            ViewBag.SubTitle = "Details";
-
-            var user = UserManager.FindById(User.Identity.GetUserId<int>());
-
-            var model = new AccountDetailsViewModel
-            {
-                UserName = user.UserName,
-                FirstName = user.UserDetails.FirstName,
-                LastName = user.UserDetails.LastName,
-                Age = user.UserDetails.Age.GetValueOrDefault(),
-                Address = user.UserDetails.Address,
-                City = user.UserDetails.City,
-                Country = user.UserDetails.Country
-            };
-
-            return View(model);
-        }
-        
-        //
-        // POST: /Account/Details
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details(AccountDetailsViewModel model)
-        {
-            ViewBag.SubTitle = "Details";
-
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            MyUser user = UserManager.FindByName<MyUser, int>(model.UserName);
-
-            user.UserDetails.FirstName = model.FirstName;
-            user.UserDetails.LastName = model.LastName;
-            user.UserDetails.Age = model.Age;
-            user.UserDetails.Address = model.Address;
-            user.UserDetails.City = model.City;
-            user.UserDetails.Country = model.Country;
-
-            // Returns result if user is updated or not
-            IdentityResult result = await UserManager.UpdateAsync(user);
-
             return View();
-        }
-
-        //
-        // GET: /Account/Settings
-        public ActionResult Settings(string message)
-        {
-            ViewBag.SubTitle = "Settings";
-            ViewBag.ChangePasswordSuccess = message;
-            return View();
-        }
-
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
         }
 
         //
@@ -198,48 +100,6 @@ namespace RentACar.Controllers
                     ModelState.AddModelError("", "Invalid code.");
                     return View(model);
             }
-        }
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new MyUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // Creating connection with UserDetails table
-                    var userDetails = new UserDetails();
-                    userDetails.Create(user.Id);
-
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         //
@@ -453,16 +313,6 @@ namespace RentACar.Controllers
 
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
-        }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
         }
 
         //

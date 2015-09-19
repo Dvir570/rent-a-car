@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="register-form">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Register", "Auth", new { area = "Account" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
         @Html.AntiForgeryToken()
         <div class="register-form-header">

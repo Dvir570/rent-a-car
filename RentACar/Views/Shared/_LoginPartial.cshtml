@@ -1,13 +1,13 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Auth", new { area = "Account" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("My Account", "Index", "Account", routeValues: null, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
+            @Html.ActionLink("My Account", "Index", "Details", routeValues: new { area = "Account"}, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()" class="navbar-button">Log off</a></li>
     </ul>
@@ -16,7 +16,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "navbar-button", id = "registerLink" })</li>
-        <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "navbar-button", id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Auth", routeValues: new { area = "Account" }, htmlAttributes: new { @class = "navbar-button", id = "registerLink" })</li>
+        <li>@Html.ActionLink("Login", "Login", "Auth", routeValues: new { area = "Account" }, htmlAttributes: new { @class = "navbar-button", id = "loginLink" })</li>
     </ul>
 }

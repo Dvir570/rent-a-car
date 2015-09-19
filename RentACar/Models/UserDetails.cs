@@ -28,9 +28,11 @@ namespace RentACar.Models
             this.UserId = userId;
             try
             {
-                var db = new ApplicationDbContext();
-                db.UserDetails.Add(this);
-                db.SaveChanges();
+                using (var db = new ApplicationDbContext())
+                {
+                    db.UserDetails.Add(this);
+                    db.SaveChanges();
+                }
                 return true;
             }
             catch
