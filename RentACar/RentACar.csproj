@@ -172,6 +172,7 @@
     <Compile Include="Areas\Account\Controllers\DetailsController.cs" />
     <Compile Include="Areas\Account\Controllers\RecoveryController.cs" />
     <Compile Include="Areas\Account\Controllers\SettingsController.cs" />
+    <Compile Include="Areas\Account\Models\AuthViewModels.cs" />
     <Compile Include="Areas\Account\Models\DetailsViewModels.cs" />
     <Compile Include="Areas\Account\Models\RecoveryViewModels.cs" />
     <Compile Include="Areas\Account\Models\SettingsViewModels.cs" />
@@ -253,13 +254,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Account\Views\Auth\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Account\Views\Auth\ForgotPassword.cshtml" />
+    <Content Include="Areas\Account\Views\Auth\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Account\Views\Auth\ResetPassword.cshtml" />
+    <Content Include="Areas\Account\Views\Auth\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
