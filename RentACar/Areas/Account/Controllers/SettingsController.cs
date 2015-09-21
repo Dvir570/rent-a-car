@@ -215,12 +215,8 @@ namespace RentACar.Areas.Account.Controllers
 
             if (UserManager.CheckPassword(user, model.Password))
             {
-                using (var db = new ApplicationDbContext())
-                {
-                    var userDetails = db.UserDetails.Find(user.Id);
-                    db.Entry(userDetails).State = System.Data.Entity.EntityState.Deleted;
-                    db.SaveChanges();
-                }
+                // Delete UserDetails (connection with User [FK])
+                user.RemoveUserDetails();
 
                 IdentityResult result = await UserManager.DeleteAsync(user);
                 if (result.Succeeded)

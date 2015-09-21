@@ -10,8 +10,6 @@ namespace RentACar.Models
 {
     public class UserDetails
     {
-        public UserDetails() { }
-
         [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public string FirstName { get; set; }
@@ -23,22 +21,11 @@ namespace RentACar.Models
 
         public virtual MyUser User { get; set; }
 
-        public bool Create(int userId)
+        public UserDetails() { }
+
+        public UserDetails(int userId)
         {
             this.UserId = userId;
-            try
-            {
-                using (var db = new ApplicationDbContext())
-                {
-                    db.UserDetails.Add(this);
-                    db.SaveChanges();
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

@@ -14,6 +14,42 @@ namespace RentACar.Models
         public virtual UserDetails UserDetails { get; set; }
         public virtual IEnumerable<Rent> Rents { get; set; }
 
+        public bool AddUserDetails()
+        {
+            try
+            {
+                UserDetails userDetails = new UserDetails(this.Id);
+                using (var db = new ApplicationDbContext())
+                {
+                    db.UserDetails.Add(userDetails);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool RemoveUserDetails()
+        {
+            try
+            {
+                using (var db = new ApplicationDbContext())
+                {
+                    UserDetails userDetails = db.UserDetails.Find(this.Id);
+                    db.Entry(userDetails).State = EntityState.Deleted;
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<MyUser, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
