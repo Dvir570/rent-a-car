@@ -150,6 +150,19 @@ namespace RentACar.Areas.Account.Controllers
         }
 
         //
+        // GET: /Account/Auth/ConfirmEmail
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        {
+            if (userId == default(int) || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        //
         // GET: /Account/Auth/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -166,7 +179,7 @@ namespace RentACar.Areas.Account.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -233,19 +246,6 @@ namespace RentACar.Areas.Account.Controllers
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
-        }
-
-        //
-        // GET: /Account/Auth/ConfirmEmail
-        [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(int userId, string code)
-        {
-            if (userId == default(int) || code == null)
-            {
-                return View("Error");
-            }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         protected override void Dispose(bool disposing)

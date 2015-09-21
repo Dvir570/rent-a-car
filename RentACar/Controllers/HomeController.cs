@@ -44,29 +44,26 @@ namespace RentACar.Controllers
             try
             {
                 MailMessage mail = new MailMessage();
-                
+
                 // Message details
                 mail.From = new MailAddress(model.Email);
                 mail.Subject = model.Subject;
                 mail.IsBodyHtml = false;
-                mail.To.Add("RECEIVER EMAIL");
+                mail.To.Add("RECEIVER MAIL / GMAIL USERNAME");
 
-                string sender = "Sender: " + model.Name + "(" + model.Email + ")" + "\n";
-                string subject = "Subject: " + model.Subject + "\n\n";
-                string body = "Message: " + model.Message + "\n\n";
+                string sender = "Sender: " + model.Name + " (" + model.Email + ")" + "\n\n";
+                string body = model.Message + "\n\n";
                 string sendFrom = "Sent from: IN Car Rent";
 
-                mail.Body = sender + subject + body + sendFrom;
+                mail.Body = sender + body + sendFrom;
 
                 // Email configuration
                 // "Allow less secure apps" must be enable (Google Account)
-                SmtpClient client = new SmtpClient("smtp.gmail.com", 587 );
-                client.Credentials = new NetworkCredential("GMAIL USERNAME", "GMAIL PASSWORD");
-                client.EnableSsl = true;
-
-                // Sending email
-                client.Send(mail);
-                mail.Dispose();
+                using (var gmailClient = new Features.GmailService("GMAIL USERNAME", "GMAIL PASSWORD"))
+                {
+                    gmailClient.Send(mail);
+                    mail.Dispose();
+                }
 
                 ViewBag.Message = "<br> Your message has been sent successfuly.";
                 return View();

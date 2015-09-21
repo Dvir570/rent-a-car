@@ -11,15 +11,33 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using RentACar.Models;
+using System.Net.Mail;
+using RentACar.Features;
 
 namespace RentACar
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            // Configuration for sending mail via Google account
+            // "Allow less secure apps" must be enable (Google Account)
+            MailMessage mail = new MailMessage();
+
+            mail.From = new MailAddress("no-reply@rent-a-car.com");
+            mail.To.Add(new MailAddress(message.Destination));
+
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            using (var gmailClient = new GmailService("GMAIL USERNAME", "GMAIL PASSWORD"))
+            {
+                await gmailClient.SendMailAsync(mail);
+                mail.Dispose();
+            }
+
+            // return Task.FromResult(0);
         }
     }
 
