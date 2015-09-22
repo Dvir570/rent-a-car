@@ -19,25 +19,6 @@ namespace RentACar.Areas.Account.Models
         public string CurrentPassword { get; set; }
     }
 
-    public class ChangeEmailViewModel
-    {
-        [Required]
-        [Display(Name = "New email")]
-        [DataType(DataType.EmailAddress)]
-        public string NewEmail { get; set; }
-
-        [Required]
-        [Display(Name = "Confirm email")]
-        [Compare("NewEmail", ErrorMessage = "The new email and confirmation email do not match.")]
-        [DataType(DataType.EmailAddress)]
-        public string ConfirmEmail { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
-        public string CurrentPassword { get; set; }
-    }
-
     public class ChangePasswordViewModel
     {
         [Required]

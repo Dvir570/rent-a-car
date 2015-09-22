@@ -16,7 +16,7 @@
                         Change email address
                     </div>
                     <div class="panel-body">
-                        @using (Html.BeginForm("ChangeEmail", "Settings", new { area = "Account" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        @using (Html.BeginForm("ChangeEmail", "Email", new { area = "Account" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })

@@ -137,7 +137,7 @@ namespace RentACar.Areas.Account.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -158,6 +158,12 @@ namespace RentACar.Areas.Account.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            if (User.Identity.GetUserId<int>() == userId)
+            {
+                string confirmedEmail = result.Succeeded ? "success" : "error";
+                return RedirectToAction("ConfirmEmail", "Email", new { area = "Account", ConfirmedEmail = confirmedEmail });
+            }
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 

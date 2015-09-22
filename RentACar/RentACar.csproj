@@ -170,11 +170,11 @@
     <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
     <Compile Include="Areas\Account\Controllers\AuthController.cs" />
     <Compile Include="Areas\Account\Controllers\DetailsController.cs" />
-    <Compile Include="Areas\Account\Controllers\RecoveryController.cs" />
+    <Compile Include="Areas\Account\Controllers\EmailController.cs" />
     <Compile Include="Areas\Account\Controllers\SettingsController.cs" />
     <Compile Include="Areas\Account\Models\AuthViewModels.cs" />
     <Compile Include="Areas\Account\Models\DetailsViewModels.cs" />
-    <Compile Include="Areas\Account\Models\RecoveryViewModels.cs" />
+    <Compile Include="Areas\Account\Models\EmailViewModels.cs" />
     <Compile Include="Areas\Account\Models\SettingsViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Features\GmailService.cs" />
@@ -222,8 +222,10 @@
     <Content Include="Areas\Account\Views\Auth\Register.cshtml" />
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Account\Views\Settings\ChangeUsername.cshtml" />
-    <Content Include="Areas\Account\Views\Settings\ChangeEmail.cshtml" />
+    <Content Include="Areas\Account\Views\Email\ChangeEmail.cshtml" />
     <Content Include="Areas\Account\Views\Settings\DeleteAccount.cshtml" />
+    <Content Include="Areas\Account\Views\Email\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Email\ConfirmEmail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -263,7 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Account\Views\Recovery\" />
     <Folder Include="Images\Cars\" />
   </ItemGroup>
   <ItemGroup>

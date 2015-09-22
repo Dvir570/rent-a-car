@@ -122,47 +122,6 @@ namespace RentACar.Areas.Account.Controllers
         }
 
         //
-        // GET: /Account/Settings/ChangeEmail
-        public ActionResult ChangeEmail()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Settings/ChangeEmail
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = UserManager.FindById(User.Identity.GetUserId<int>());
-
-            if (UserManager.CheckPassword(user, model.CurrentPassword))
-            {
-                user.Email = model.NewEmail;
-
-                IdentityResult result = await UserManager.UpdateAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Settings", new { area = "Account", Message = ManageMessageId.ChangeEmailSuccess });
-                }
-                AddErrors(result);
-                return View();
-            }
-            else
-            {
-                IdentityResult uncorrectPassword = IdentityResult.Failed("You entered a wrong password.");
-                AddErrors(uncorrectPassword);
-                model.CurrentPassword = "";
-                return View(model);
-            }
-        }
-
-        //
         // GET: /Account/Settings/ChangePassword
         public ActionResult ChangePassword()
         {
@@ -237,6 +196,25 @@ namespace RentACar.Areas.Account.Controllers
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
+
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
 
         //
         // Helpers
