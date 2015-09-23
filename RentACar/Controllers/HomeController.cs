@@ -45,11 +45,18 @@ namespace RentACar.Controllers
             {
                 MailMessage mail = new MailMessage();
 
+                AppSettings appSettings;
+
+                using (var db = new ApplicationDbContext())
+                {
+                    appSettings = db.AppSettings.FirstOrDefault();
+                }
+
                 // Message details
                 mail.From = new MailAddress(model.Email);
                 mail.Subject = model.Subject;
                 mail.IsBodyHtml = false;
-                mail.To.Add("RECEIVER MAIL / GMAIL USERNAME");
+                mail.To.Add(appSettings.EmailAddress);
 
                 string sender = "Sender: " + model.Name + " (" + model.Email + ")" + "\n\n";
                 string body = model.Message + "\n\n";
@@ -59,7 +66,7 @@ namespace RentACar.Controllers
 
                 // Email configuration
                 // "Allow less secure apps" must be enable (Google Account)
-                using (var gmailClient = new Features.GmailService("GMAIL USERNAME", "GMAIL PASSWORD"))
+                using (var gmailClient = new Features.GmailService(appSettings.EmailUsername, appSettings.EmailPassword))
                 {
                     gmailClient.Send(mail);
                     mail.Dispose();

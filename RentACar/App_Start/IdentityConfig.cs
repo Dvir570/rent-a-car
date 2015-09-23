@@ -24,14 +24,21 @@ namespace RentACar
             // "Allow less secure apps" must be enable (Google Account)
             MailMessage mail = new MailMessage();
 
-            mail.From = new MailAddress("no-reply@rent-a-car.com");
+            AppSettings appSettings;
+
+            using (var db = new ApplicationDbContext())
+            {
+                appSettings = db.AppSettings.FirstOrDefault();
+            }
+
+            mail.From = new MailAddress(appSettings.EmailAddress);
             mail.To.Add(new MailAddress(message.Destination));
 
             mail.Subject = message.Subject;
             mail.Body = message.Body;
             mail.IsBodyHtml = true;
 
-            using (var gmailClient = new GmailService("GMAIL USERNAME", "GMAIL PASSWORD"))
+            using (var gmailClient = new GmailService(appSettings.EmailUsername, appSettings.EmailPassword))
             {
                 await gmailClient.SendMailAsync(mail);
                 mail.Dispose();

@@ -102,6 +102,7 @@ namespace RentACar.Models
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Rent> Rents { get; set; }
         public DbSet<Bill> Bills { get; set; }
+        public DbSet<AppSettings> AppSettings { get; set; }
 
         public static ApplicationDbContext Create()
         {

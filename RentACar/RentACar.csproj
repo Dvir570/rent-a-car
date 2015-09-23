@@ -176,12 +176,16 @@
     <Compile Include="Areas\Account\Models\DetailsViewModels.cs" />
     <Compile Include="Areas\Account\Models\EmailViewModels.cs" />
     <Compile Include="Areas\Account\Models\SettingsViewModels.cs" />
+    <Compile Include="Areas\ControlPanel\Controllers\AppSettingsController.cs" />
+    <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
+    <Compile Include="Areas\ControlPanel\Models\AppSettingsViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Features\GmailService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Car.cs" />
@@ -226,6 +230,10 @@
     <Content Include="Areas\Account\Views\Settings\DeleteAccount.cshtml" />
     <Content Include="Areas\Account\Views\Email\Index.cshtml" />
     <Content Include="Areas\Account\Views\Email\ConfirmEmail.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\web.config" />
+    <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\AppSettings\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
