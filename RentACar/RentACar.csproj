@@ -177,8 +177,11 @@
     <Compile Include="Areas\Account\Models\EmailViewModels.cs" />
     <Compile Include="Areas\Account\Models\SettingsViewModels.cs" />
     <Compile Include="Areas\ControlPanel\Controllers\AppSettingsController.cs" />
+    <Compile Include="Areas\ControlPanel\Controllers\RolesController.cs" />
+    <Compile Include="Areas\ControlPanel\Controllers\UsersController.cs" />
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
     <Compile Include="Areas\ControlPanel\Models\AppSettingsViewModels.cs" />
+    <Compile Include="Areas\ControlPanel\Models\UsersViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Features\GmailService.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,6 +237,14 @@
     <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Shared\_Menu.cshtml" />
     <Content Include="Areas\ControlPanel\Views\AppSettings\Index.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Index.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Details.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\Create.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\Delete.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\ControlPanel\Views\Roles\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

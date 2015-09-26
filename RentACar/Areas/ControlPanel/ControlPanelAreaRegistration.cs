@@ -19,6 +19,12 @@ namespace RentACar.Areas.ControlPanel
                 "ControlPanel/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "ControlPanel_index",
+                "ControlPanel/",
+                new { action = "Index", controller = "AppSettings", id = UrlParameter.Optional }
+                );
         }
     }
 }

@@ -50,6 +50,21 @@ namespace RentACar.Models
             }
         }
 
+        public bool AddRole(string role)
+        {
+            var userManager = new Microsoft.AspNet.Identity.UserManager<MyUser, int>(new MyUserStore(new ApplicationDbContext()));
+
+            try
+            {
+                userManager.AddToRole(this.Id, role);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<MyUser, int> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace RentACar.Areas.ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class AppSettingsController : Controller
     {
         // GET: ControlPanel/Application

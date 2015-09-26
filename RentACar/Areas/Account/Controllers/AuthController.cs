@@ -130,6 +130,7 @@ namespace RentACar.Areas.Account.Controllers
                 {
                     // Add UserDetails (connection with User [FK])
                     user.AddUserDetails();
+                    user.AddRole("User");
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
