@@ -24,7 +24,7 @@ namespace RentACar.Areas.ControlPanel
                 "ControlPanel_index",
                 "ControlPanel/",
                 new { action = "Index", controller = "AppSettings", id = UrlParameter.Optional }
-                );
+            );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,18 +9,43 @@ namespace RentACar.Models
 {
     public class Car
     {
-        public Car() { }
+        private int _NumberInUse;
+        private int _NumberReserved;
 
+        [Required]
         public int CarId { get; set; }
-        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Model")]
         public string Model { get; set; }
+
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
+        [Required]
+        [Display(Name = "Cost per day")]
         public double CostPerDay { get; set; }
 
+        [Required]
+        [Display(Name = "Capacity")]
         public int NumberTotal { get; set; }
-        public int NumberReserved { get; set; }
-        public int NumberInUse { get; set; }
+
+        [Required]
+        [Display(Name = "Reserved")]
+        
+        public int NumberReserved
+        {
+            get { return _NumberReserved; }
+            set { this._NumberReserved = this.NumberOfReservedCars(); }
+        }
+
+        [Required]
+        [Display(Name = "In use")]
+        public int NumberInUse
+        {
+            get { return _NumberInUse; }
+            set { this._NumberInUse = this.NumberOfInUseCars(); }
+        }
 
         // Foreign keys
         public int CarTypeId { get; set; }
@@ -29,46 +55,27 @@ namespace RentACar.Models
         public virtual CarType Type { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual IEnumerable<Rent> Rents { get; set; }
+        public virtual IEnumerable<Reservation> Reservations { get; set; }
 
-        public bool ReserveCar()
+        public Car() { }
+
+        public bool isAvailable()
         {
-            if(this.NumberTotal - this.NumberReserved - this.NumberInUse > 0)
+            if (this.NumberOfReservedCars() + this.NumberOfInUseCars() < this.NumberTotal )
             {
-                this.NumberReserved++;
                 return true;
             }
             return false;
         }
 
-        public bool GetCar()
+        public int NumberOfReservedCars()
         {
-            if(this.NumberTotal - this.NumberReserved - this.NumberInUse > 0)
-            {
-                this.NumberInUse++;
-                return true;
-            }
-            return false;
+            return new ApplicationDbContext().Reservations.Where(m => m.CarId == this.CarId).Count();
         }
 
-        public bool GetReservedCar()
+        public int NumberOfInUseCars()
         {
-            if(this.NumberReserved > 0)
-            {
-                this.NumberReserved--;
-                this.NumberInUse++;
-                return true;
-            }
-            return false;
-        }
-
-        public bool ReturnCar()
-        {
-            if(this.NumberInUse > 0)
-            {
-                this.NumberInUse--;
-                return true;
-            }
-            return false;
+            return new ApplicationDbContext().Rents.Where(m => m.CarId == this.CarId).Count();
         }
     }
 }

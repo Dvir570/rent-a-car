@@ -182,6 +182,9 @@
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
     <Compile Include="Areas\ControlPanel\Models\AppSettingsViewModels.cs" />
     <Compile Include="Areas\ControlPanel\Models\UsersViewModels.cs" />
+    <Compile Include="Areas\MyDesk\Controllers\CarsController.cs" />
+    <Compile Include="Areas\MyDesk\Controllers\ReservationsController.cs" />
+    <Compile Include="Areas\MyDesk\MyDeskAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Features\GmailService.cs" />
     <Compile Include="Global.asax.cs">
@@ -196,6 +199,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Rent.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -235,7 +239,7 @@
     <Content Include="Areas\Account\Views\Email\ConfirmEmail.cshtml" />
     <Content Include="Areas\ControlPanel\Views\web.config" />
     <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ControlPanel\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Shared\_Menu.cshtml" />
     <Content Include="Areas\ControlPanel\Views\AppSettings\Index.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Index.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Delete.cshtml" />
@@ -245,6 +249,19 @@
     <Content Include="Areas\ControlPanel\Views\Roles\Delete.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Roles\Edit.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\MyDesk\Views\web.config" />
+    <Content Include="Areas\ControlPanel\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\MyDesk\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Cars\Create.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Cars\Delete.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Cars\Details.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Cars\Edit.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Cars\Index.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\Create.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\Delete.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\Details.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\Edit.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -284,6 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\MyDesk\Models\" />
     <Folder Include="Images\Cars\" />
   </ItemGroup>
   <ItemGroup>

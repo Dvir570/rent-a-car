@@ -13,6 +13,7 @@ namespace RentACar.Models
     {
         public virtual UserDetails UserDetails { get; set; }
         public virtual IEnumerable<Rent> Rents { get; set; }
+        public virtual IEnumerable<Reservation> Reservations { get; set; }
 
         public bool AddUserDetails()
         {
@@ -118,6 +119,7 @@ namespace RentACar.Models
         public DbSet<Rent> Rents { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<AppSettings> AppSettings { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         public static ApplicationDbContext Create()
         {
