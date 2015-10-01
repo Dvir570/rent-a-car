@@ -57,7 +57,11 @@ namespace RentACar.Models
         public virtual IEnumerable<Rent> Rents { get; set; }
         public virtual IEnumerable<Reservation> Reservations { get; set; }
 
-        public Car() { }
+        public Car()
+        {
+            this.Rents = new HashSet<Rent>();
+            this.Reservations = new HashSet<Reservation>();
+        }
 
         public bool isAvailable()
         {

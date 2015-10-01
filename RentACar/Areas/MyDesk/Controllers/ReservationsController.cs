@@ -11,6 +11,7 @@ using RentACar.Models;
 
 namespace RentACar.Areas.MyDesk.Controllers
 {
+    [Authorize(Roles = "Moderator")]
     public class ReservationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,6 +23,7 @@ namespace RentACar.Areas.MyDesk.Controllers
                 message == ReservationMessageId.ReservationAdded ? "Reservation has been successfully added."
                 : message == ReservationMessageId.ReservationEdited ? "Reservation has been successfully edited."
                 : message == ReservationMessageId.ReservationDeleted ? "Reservation has been successfully deleted."
+                : message == ReservationMessageId.ReservationRented ? "Reservation has been changed to rent."
                 : message == ReservationMessageId.ReservationError ? "Reservation was not successfull. Capacity is full."
                 : message == ReservationMessageId.Error ? "An error has occurred."
                 : "";
@@ -144,7 +146,8 @@ namespace RentACar.Areas.MyDesk.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (new ApplicationDbContext().Cars.Find(reservation.CarId).isAvailable())
+                var car = db.Cars.Find(reservation.CarId);
+                if(car.isAvailable())
                 {
                     db.Entry(reservation).State = EntityState.Modified;
                     await db.SaveChangesAsync();
@@ -184,6 +187,54 @@ namespace RentACar.Areas.MyDesk.Controllers
             return RedirectToAction("Index", new { Message = ReservationMessageId.ReservationDeleted });
         }
 
+        public ActionResult RentIt(int id)
+        {
+            var reservation = db.Reservations.Find(id);
+
+            IEnumerable<Car> cars = db.Cars
+                .ToList()
+                .Select(m => new Car
+                {
+                    CarId = m.CarId,
+                    Model = m.Brand.Name + " " + m.Model
+                });
+
+            IEnumerable<MyUser> users = db.Users
+                .ToList()
+                .Select(m => new MyUser
+                {
+                    Id = m.Id,
+                    UserName = m.UserDetails.FirstName + " " + m.UserDetails.LastName
+                });
+
+            ViewBag.CarId = new SelectList(cars, "CarId", "Model", reservation.CarId);
+            ViewBag.UserId = new SelectList(users, "Id", "UserName", reservation.UserId);
+
+            return View(reservation);
+        }
+
+        [HttpPost]
+        public ActionResult RentIt(Reservation reservation, DateTime endDate)
+        {
+            var oldReservation = db.Reservations.Find(reservation.ReservationId);
+
+            db.Rents.Add(new Rent
+            {
+                Car = reservation.Car,
+                CarId = reservation.CarId,
+                StartDate = DateTime.Now,
+                EndDate = endDate,
+                Paid = false,
+                User = reservation.User,
+                UserId = reservation.UserId
+            });
+
+            db.Reservations.Remove(oldReservation);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { Message = ReservationMessageId.ReservationRented });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -199,6 +250,7 @@ namespace RentACar.Areas.MyDesk.Controllers
             ReservationEdited,
             ReservationDeleted,
             ReservationError,
+            ReservationRented,
             Error
         }
     }

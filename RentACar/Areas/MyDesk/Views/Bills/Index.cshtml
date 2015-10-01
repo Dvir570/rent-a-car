@@ -1,0 +1,68 @@
+﻿@model IEnumerable<RentACar.Models.Bill>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="page-body">
+        <div class="col-md-3">
+            @{ Html.RenderPartial("_Menu"); }
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>Bills</span>
+                    <span class="pull-right">
+                        @Html.ActionLink("Create New", "Create")
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Rent.RentId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cost)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rent.RentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cost)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.RentId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.RentId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.RentId }) |
+                                    @if(item.Rent.Paid == true)
+                                    {
+                                        @Html.DisplayName("Pay")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Pay", "Pay", new { id = item.RentId })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

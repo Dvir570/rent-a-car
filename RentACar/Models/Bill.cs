@@ -14,13 +14,17 @@ namespace RentACar.Models
 
         [Key, ForeignKey("Rent")]
         public int RentId { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
+
         public double Cost { get; set; }
 
         public virtual Rent Rent { get; set; }
 
-        public void CalculateTotalCost(int days, double costPerDay)
+        public void CalculateTotalCost(DateTime startDate, DateTime endDate, double costPerDay)
         {
+            var days = (int) endDate.Subtract(startDate).TotalDays + 1;
             this.Cost = days * costPerDay;
         }
     }

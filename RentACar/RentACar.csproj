@@ -182,7 +182,9 @@
     <Compile Include="Areas\ControlPanel\ControlPanelAreaRegistration.cs" />
     <Compile Include="Areas\ControlPanel\Models\AppSettingsViewModels.cs" />
     <Compile Include="Areas\ControlPanel\Models\UsersViewModels.cs" />
+    <Compile Include="Areas\MyDesk\Controllers\BillsController.cs" />
     <Compile Include="Areas\MyDesk\Controllers\CarsController.cs" />
+    <Compile Include="Areas\MyDesk\Controllers\RentsController.cs" />
     <Compile Include="Areas\MyDesk\Controllers\ReservationsController.cs" />
     <Compile Include="Areas\MyDesk\MyDeskAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,6 +264,17 @@
     <Content Include="Areas\MyDesk\Views\Reservations\Details.cshtml" />
     <Content Include="Areas\MyDesk\Views\Reservations\Edit.cshtml" />
     <Content Include="Areas\MyDesk\Views\Reservations\Index.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Rents\Create.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Rents\Delete.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Rents\Details.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Rents\Edit.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Rents\Index.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Reservations\RentIt.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Bills\Create.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Bills\Delete.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Bills\Details.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Bills\Edit.cshtml" />
+    <Content Include="Areas\MyDesk\Views\Bills\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

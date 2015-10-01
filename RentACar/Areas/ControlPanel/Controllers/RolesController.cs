@@ -11,8 +11,9 @@ using RentACar.Models;
 
 namespace RentACar.Areas.ControlPanel.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class RolesController : Controller
-    {
+    {        
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ControlPanel/Roles
