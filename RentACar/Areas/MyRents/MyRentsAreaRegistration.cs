@@ -19,6 +19,12 @@ namespace RentACar.Areas.MyRents
                 "MyRents/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "MyRents_index",
+                "MyRents/",
+                new { action = "Index", controller = "Rents", id = UrlParameter.Optional }
+            );
         }
     }
 }

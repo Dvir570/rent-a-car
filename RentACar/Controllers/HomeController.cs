@@ -81,5 +81,18 @@ namespace RentACar.Controllers
                 return View();
             }
         }
+        
+        public ActionResult CarList()
+        {
+            List<Car> cars;
+
+            using (var db = new ApplicationDbContext())
+            {
+                cars = db.Cars.Include("Brand")
+                    .OrderBy(m => m.Brand.Name).ThenBy(m => m.Model).ToList();
+            }
+
+            return View(cars);
+        }
     }
 }

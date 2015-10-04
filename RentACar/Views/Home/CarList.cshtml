@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RentACar.Models.Car>
+
+@{
+    ViewBag.Title = "Car list";
+}
+
+<div class="container">
+    <div class="page-body">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="well well-lg text-center">
+                    <p>
+                        <img src="item.ImageUrl" class="brand-img" />
+                    </p>
+                    <p style="font-weight: bold;">
+                        @Html.DisplayFor(modelItem => item.Brand.Name)
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.CostPerDay) USD per day
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

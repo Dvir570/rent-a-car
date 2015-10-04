@@ -24,10 +24,10 @@
                                 @Html.DisplayNameFor(model => model.Rent.RentId)
                             </th>
                             <th class="text-center">
-                                Name
+                                User
                             </th>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.Rent.User.Email)
+                                @Html.DisplayNameFor(model => model.Rent.Car.Model)
                             </th>
                             <th class="text-center">
                                 @Html.DisplayNameFor(model => model.Date)
@@ -54,7 +54,8 @@
                                     @Html.DisplayFor(modelItem => item.Rent.User.UserDetails.LastName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Rent.User.Email)
+                                    @Html.DisplayFor(modelItem => item.Rent.Car.Brand.Name)
+                                    @Html.DisplayFor(modelItem => item.Rent.Car.Model)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Date)

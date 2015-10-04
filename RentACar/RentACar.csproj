@@ -187,6 +187,8 @@
     <Compile Include="Areas\MyDesk\Controllers\RentsController.cs" />
     <Compile Include="Areas\MyDesk\Controllers\ReservationsController.cs" />
     <Compile Include="Areas\MyDesk\MyDeskAreaRegistration.cs" />
+    <Compile Include="Areas\MyRents\Controllers\BillsController.cs" />
+    <Compile Include="Areas\MyRents\Controllers\RentsController.cs" />
     <Compile Include="Areas\MyRents\Controllers\ReservationsController.cs" />
     <Compile Include="Areas\MyRents\MyRentsAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -272,7 +274,6 @@
     <Content Include="Areas\MyDesk\Views\Rents\Edit.cshtml" />
     <Content Include="Areas\MyDesk\Views\Rents\Index.cshtml" />
     <Content Include="Areas\MyDesk\Views\Reservations\RentIt.cshtml" />
-    <Content Include="Areas\MyDesk\Views\Bills\Create.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Delete.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Edit.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Index.cshtml" />
@@ -283,6 +284,10 @@
     <Content Include="Areas\MyRents\Views\Reservations\Delete.cshtml" />
     <Content Include="Areas\MyRents\Views\Reservations\Edit.cshtml" />
     <Content Include="Areas\MyRents\Views\Reservations\Index.cshtml" />
+    <Content Include="Areas\MyRents\Views\Rents\Details.cshtml" />
+    <Content Include="Areas\MyRents\Views\Rents\Index.cshtml" />
+    <Content Include="Areas\MyRents\Views\Bills\Details.cshtml" />
+    <Content Include="Areas\MyRents\Views\Bills\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -319,6 +324,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Account\Views\Details\Index.cshtml" />
     <Content Include="Areas\Account\Views\Settings\Index.cshtml" />
+    <Content Include="Views\Home\CarList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

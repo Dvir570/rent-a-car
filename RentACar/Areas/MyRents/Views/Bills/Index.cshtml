@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RentACar.Models.Reservation>
+﻿@model IEnumerable<RentACar.Models.Bill>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,7 @@
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span>Reservations</span>
-                    <span class="pull-right">
-                        @Html.ActionLink("Create New", "Create")
-                    </span>
+                    <span>Bills</span>
                 </div>
                 <div class="panel-body">
                     @if (Model.Count() > 0)
@@ -23,10 +20,19 @@
                         <table class="table">
                             <tr>
                                 <th class="text-center">
-                                    @Html.DisplayNameFor(model => model.Car.Model)
+                                    @Html.DisplayNameFor(model => model.Rent.RentId)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Rent.Car.Model)
                                 </th>
                                 <th class="text-center">
                                     @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Cost)
+                                </th>
+                                <th class="text-center">
+                                    @Html.DisplayNameFor(model => model.Rent.Paid)
                                 </th>
                                 <th class="text-center">
                                     Actions
@@ -37,15 +43,23 @@
                             {
                                 <tr class="text-center">
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Car.Brand.Name)
-                                        @Html.DisplayFor(modelItem => item.Car.Model)
+                                        @Html.DisplayFor(modelItem => item.Rent.RentId)
+                                    </td>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.Rent.Car.Brand.Name)
+                                        @Html.DisplayFor(modelItem => item.Rent.Car.Model)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Date)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ReservationId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                                        @Html.DisplayFor(modelItem => item.Cost)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rent.Paid)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.RentId })
                                     </td>
                                 </tr>
                             }
@@ -54,7 +68,7 @@
                     else
                     {
                         <p class="text-center">
-                            No reservations yet.
+                            No bills yet.
                         </p>
                     }
                 </div>

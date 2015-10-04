@@ -23,41 +23,6 @@ namespace RentACar.Areas.MyDesk.Controllers
             return View(await bills.ToListAsync());
         }
 
-        // GET: MyDesk/Bills/Create
-        public ActionResult Create(int id)
-        {
-            var rent = db.Rents.Find(id);
-
-            var bill = new Bill
-            {
-                RentId = id,
-                Rent = rent,
-                Date = DateTime.Now
-            };
-            bill.CalculateTotalCost(rent.StartDate, rent.EndDate, rent.Car.CostPerDay);
-
-            return View(bill);
-        }
-
-        // POST: MyDesk/Bills/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RentId,Date,Cost")] Bill bill)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Rents.Find(bill.RentId).Billed = true;
-                db.Bills.Add(bill);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.RentId = new SelectList(db.Rents, "RentId", "RentId", bill.RentId);
-            return View(bill);
-        }
-
         // GET: MyDesk/Bills/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
