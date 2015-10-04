@@ -187,6 +187,8 @@
     <Compile Include="Areas\MyDesk\Controllers\RentsController.cs" />
     <Compile Include="Areas\MyDesk\Controllers\ReservationsController.cs" />
     <Compile Include="Areas\MyDesk\MyDeskAreaRegistration.cs" />
+    <Compile Include="Areas\MyRents\Controllers\ReservationsController.cs" />
+    <Compile Include="Areas\MyRents\MyRentsAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Features\GmailService.cs" />
     <Compile Include="Global.asax.cs">
@@ -241,7 +243,7 @@
     <Content Include="Areas\Account\Views\Email\ConfirmEmail.cshtml" />
     <Content Include="Areas\ControlPanel\Views\web.config" />
     <Content Include="Areas\ControlPanel\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\MyDesk\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\MyRents\Views\Shared\_Menu.cshtml" />
     <Content Include="Areas\ControlPanel\Views\AppSettings\Index.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Index.cshtml" />
     <Content Include="Areas\ControlPanel\Views\Users\Delete.cshtml" />
@@ -272,9 +274,15 @@
     <Content Include="Areas\MyDesk\Views\Reservations\RentIt.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Create.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Delete.cshtml" />
-    <Content Include="Areas\MyDesk\Views\Bills\Details.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Edit.cshtml" />
     <Content Include="Areas\MyDesk\Views\Bills\Index.cshtml" />
+    <Content Include="Areas\MyRents\Views\web.config" />
+    <Content Include="Areas\MyDesk\Views\Shared\_Menu.cshtml" />
+    <Content Include="Areas\MyRents\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MyRents\Views\Reservations\Create.cshtml" />
+    <Content Include="Areas\MyRents\Views\Reservations\Delete.cshtml" />
+    <Content Include="Areas\MyRents\Views\Reservations\Edit.cshtml" />
+    <Content Include="Areas\MyRents\Views\Reservations\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -315,6 +323,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\MyDesk\Models\" />
+    <Folder Include="Areas\MyRents\Models\" />
     <Folder Include="Images\Cars\" />
   </ItemGroup>
   <ItemGroup>

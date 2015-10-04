@@ -23,21 +23,6 @@ namespace RentACar.Areas.MyDesk.Controllers
             return View(await bills.ToListAsync());
         }
 
-        // GET: MyDesk/Bills/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Bill bill = await db.Bills.FindAsync(id);
-            if (bill == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bill);
-        }
-
         // GET: MyDesk/Bills/Create
         public ActionResult Create(int id)
         {

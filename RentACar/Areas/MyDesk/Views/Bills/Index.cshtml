@@ -20,23 +20,41 @@
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>
+                            <th class="text-center">
                                 @Html.DisplayNameFor(model => model.Rent.RentId)
                             </th>
-                            <th>
+                            <th class="text-center">
+                                Name
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Rent.User.Email)
+                            </th>
+                            <th class="text-center">
                                 @Html.DisplayNameFor(model => model.Date)
                             </th>
-                            <th>
+                            <th class="text-center">
                                 @Html.DisplayNameFor(model => model.Cost)
                             </th>
-                            <th></th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Rent.Paid)
+                            </th>
+                            <th class="text-center">
+                                Actions
+                            </th>
                         </tr>
 
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr class="text-center">
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Rent.RentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rent.User.UserDetails.FirstName)
+                                    @Html.DisplayFor(modelItem => item.Rent.User.UserDetails.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rent.User.Email)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Date)
@@ -45,8 +63,10 @@
                                     @Html.DisplayFor(modelItem => item.Cost)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.Rent.Paid)
+                                </td>
+                                <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.RentId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.RentId }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = item.RentId }) |
                                     @if(item.Rent.Paid == true)
                                     {

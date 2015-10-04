@@ -41,7 +41,7 @@ else if (Request.IsAuthenticated && User.IsInRole("User"))
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("My Rents", "Index", "Rents", routeValues: new { area = "Rents" }, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
+                @Html.ActionLink("My Rents", "Index", "Rents", routeValues: new { area = "MyRents" }, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
             </li>
             <li>
                 @Html.ActionLink("My Account", "Index", "Details", routeValues: new { area = "Account" }, htmlAttributes: new { @class = "navbar-button", title = "Manage" })
