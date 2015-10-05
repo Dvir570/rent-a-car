@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
 
@@ -17,8 +14,25 @@ namespace RentACar.Areas.ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ControlPanel/Roles
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(RoleMessageId? message)
         {
+            ViewBag.StatusMessage =
+                message == RoleMessageId.AddRole ? "Role has been successfully added."
+                : message == RoleMessageId.ChangeRole ? "Role has been successfully changed."
+                : message == RoleMessageId.AssignedRole ? "Role cannot be deleted. Users are assigned to selected role."
+                : message == RoleMessageId.RemoveRole ? "Role has been successfully removed."
+                : message == RoleMessageId.Error ? "An error has occurred."
+                : "";
+
+            if (message == RoleMessageId.Error || message == RoleMessageId.AssignedRole)
+            {
+                ViewBag.StatusClass = "alert-danger";
+            }
+            else
+            {
+                ViewBag.StatusClass = "alert-success";
+            }
+
             return View(await db.Roles.OrderBy(m => m.Id).ToListAsync());
         }
 
@@ -40,7 +54,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", new { Message = "Created a new role.", MessageType = "Success" });
+            return RedirectToAction("Index", new { Message = RoleMessageId.AddRole });
         }
 
         // GET: ControlPanel/Roles/Edit/5
@@ -67,7 +81,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
             {
                 db.Entry(myRole).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", new { Message = "Role has been successfully changed.", MessageType = "Success" });
+                return RedirectToAction("Index", new { Message = RoleMessageId.ChangeRole });
             }
             return View(myRole);
         }
@@ -96,14 +110,14 @@ namespace RentACar.Areas.ControlPanel.Controllers
 
             if (role.Users.Count > 0)
             {
-                return RedirectToAction("Index", new { Message = "Users are assigned to role " + role.Name + ".", MessageType = "Error" });
+                return RedirectToAction("Index", new { Message = RoleMessageId.AssignedRole });
             }
 
             MyRole myRole = db.Roles.Find(id);
             db.Roles.Remove(myRole);
             db.SaveChanges();
             
-            return RedirectToAction("Index", new { Message = "Role has been successfully deleted.", MessageType = "Success" });
+            return RedirectToAction("Index", new { Message = RoleMessageId.RemoveRole });
         }
 
         protected override void Dispose(bool disposing)
@@ -113,6 +127,15 @@ namespace RentACar.Areas.ControlPanel.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public enum RoleMessageId
+        {
+            AddRole,
+            ChangeRole,
+            AssignedRole,
+            RemoveRole,
+            Error
         }
     }
 }

@@ -10,6 +10,7 @@ namespace RentACar.Models
     public class CarType
     {
         [Required]
+        [Display(Name = "Type ID")]
         public int CarTypeId { get; set; }
 
         [Required]

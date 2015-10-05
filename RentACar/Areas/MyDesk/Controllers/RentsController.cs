@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
 
@@ -17,8 +15,25 @@ namespace RentACar.Areas.MyDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyDesk/Rents
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(RentMessageId? message)
         {
+            ViewBag.StatusMessage =
+                message == RentMessageId.AddRent ? "Rent has been successfully added."
+                : message == RentMessageId.ChangeRent ? "Rent has been successfully changed."
+                : message == RentMessageId.RemoveRent ? "Rent has been successfully removed."
+                : message == RentMessageId.ReturnCar ? "Car has been successfully returned."
+                : message == RentMessageId.Error ? "An error has occurred."
+                : "";
+
+            if (message == RentMessageId.Error)
+            {
+                ViewBag.StatusClass = "alert-danger";
+            }
+            else
+            {
+                ViewBag.StatusClass = "alert-success";
+            }
+
             var rents = db.Rents.Include(r => r.Bill).Include(r => r.Car).Include(r => r.User);
             return View(await rents.ToListAsync());
         }
@@ -71,11 +86,11 @@ namespace RentACar.Areas.MyDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "RentId,StartDate,EndDate,Paid,UserId,CarId")] Rent rent)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && rent.CheckDate())
             {
                 db.Rents.Add(rent);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = RentMessageId.AddRent });
             }
 
             IEnumerable<Car> cars = db.Cars
@@ -142,11 +157,11 @@ namespace RentACar.Areas.MyDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "RentId,StartDate,EndDate,Paid,UserId,CarId")] Rent rent)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && rent.CheckDate())
             {
                 db.Entry(rent).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = RentMessageId.ChangeRent });
             }
 
             IEnumerable<Car> cars = db.Cars
@@ -194,10 +209,21 @@ namespace RentACar.Areas.MyDesk.Controllers
         {
             Rent rent = await db.Rents.FindAsync(id);
             Bill bill = await db.Bills.FindAsync(id);
-            db.Bills.Remove(bill);
+            if(bill != null)
+            {
+                db.Bills.Remove(bill);
+            }
             db.Rents.Remove(rent);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { Message = RentMessageId.RemoveRent });
+        }
+
+        public async Task<ActionResult> ReturnCar(int id)
+        {
+            var rent = db.Rents.Find(id);
+            rent.ReturnCar();
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index", new { Message = RentMessageId.ReturnCar });
         }
 
         protected override void Dispose(bool disposing)
@@ -207,6 +233,15 @@ namespace RentACar.Areas.MyDesk.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public enum RentMessageId
+        {
+            AddRent,
+            ChangeRent,
+            RemoveRent,
+            ReturnCar,
+            Error
         }
     }
 }

@@ -13,6 +13,7 @@ namespace RentACar.Models
         private int _NumberReserved;
 
         [Required]
+        [Display(Name = "Car ID")]
         public int CarId { get; set; }
 
         [Required]
@@ -74,12 +75,14 @@ namespace RentACar.Models
 
         public int NumberOfReservedCars()
         {
-            return new ApplicationDbContext().Reservations.Where(m => m.CarId == this.CarId).Count();
+            return new ApplicationDbContext()
+                .Reservations.Where(m => m.CarId == this.CarId && m.Reserved == true).Count();
         }
 
         public int NumberOfInUseCars()
         {
-            return new ApplicationDbContext().Rents.Where(m => m.CarId == this.CarId).Count();
+            return new ApplicationDbContext()
+                .Rents.Where(m => m.CarId == this.CarId && m.Returned == false).Count();
         }
     }
 }

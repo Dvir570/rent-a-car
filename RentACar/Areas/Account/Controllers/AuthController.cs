@@ -3,9 +3,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RentACar.Areas.Account.Models;
 using RentACar.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -18,9 +15,7 @@ namespace RentACar.Areas.Account.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AuthController()
-        {
-        }
+        public AuthController() { }
 
         public AuthController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -58,7 +53,6 @@ namespace RentACar.Areas.Account.Controllers
             return RedirectToAction("Login");
         }
 
-        //
         // GET: /Account/Auth/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -67,7 +61,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Auth/Login
         [HttpPost]
         [AllowAnonymous]
@@ -97,7 +90,6 @@ namespace RentACar.Areas.Account.Controllers
             }
         }
 
-        //
         // POST: /Account/Auth/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -107,7 +99,6 @@ namespace RentACar.Areas.Account.Controllers
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
-        //
         // GET: /Account/Auth/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -115,7 +106,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Auth/Register
         [HttpPost]
         [AllowAnonymous]
@@ -149,7 +139,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Auth/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
@@ -168,7 +157,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
         // GET: /Account/Auth/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -176,7 +164,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Auth/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -204,7 +191,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Auth/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -212,7 +198,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // GET: /Account/Auth/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
@@ -220,7 +205,6 @@ namespace RentACar.Areas.Account.Controllers
             return code == null ? View("Error") : View();
         }
 
-        //
         // POST: /Account/Auth/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -246,7 +230,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // GET: /Account/Auth/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
@@ -274,7 +257,6 @@ namespace RentACar.Areas.Account.Controllers
             base.Dispose(disposing);
         }
 
-        //
         // Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,9 +15,7 @@ namespace RentACar.Areas.Account.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public DetailsController()
-        {
-        }
+        public DetailsController() { }
 
         public DetailsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -51,7 +47,6 @@ namespace RentACar.Areas.Account.Controllers
             }
         }
 
-        //
         // GET: Account/Details
         public ActionResult Index()
         {
@@ -74,7 +69,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/Details
         [HttpPost]
         [ValidateAntiForgeryToken]

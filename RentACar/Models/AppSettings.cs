@@ -11,11 +11,14 @@ namespace RentACar.Models
     {
         public int AppSettingsId { get; set; }
 
+        [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
 
+        [Display(Name = "Username")]
         public string EmailUsername { get; set; }
 
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string EmailPassword { get; set; }
     }

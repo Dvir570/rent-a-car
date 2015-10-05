@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
 using RentACar.Areas.ControlPanel.Models;
-using System.Web.Security;
 
 namespace RentACar.Areas.ControlPanel.Controllers
 {
@@ -19,8 +16,23 @@ namespace RentACar.Areas.ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ControlPanel/Users
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(UserMessageId? message)
         {
+            ViewBag.StatusMessage =
+                message == UserMessageId.ChangeUser ? "User has been successfully changed."
+                : message == UserMessageId.RemoveUser ? "User has been successfully removed."
+                : message == UserMessageId.Error ? "An error has occurred."
+                : "";
+
+            if (message == UserMessageId.Error)
+            {
+                ViewBag.StatusClass = "alert-danger";
+            }
+            else
+            {
+                ViewBag.StatusClass = "alert-success";
+            }
+
             List<UserListViewModel> userList = new List<UserListViewModel>();
 
             var users = new List<MyUser>();
@@ -46,11 +58,9 @@ namespace RentACar.Areas.ControlPanel.Controllers
                         LastName = singleUser.UserDetails.LastName,
                         Role = userRole.Count > 0 ? userRole[0].ToString() : ""
                     };
-
                     userList.Add(user);
                 }
             }
-
             return View(userList);
         }
 
@@ -174,7 +184,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
                     await userManager.RemovePasswordAsync(model.UserId);
                     await userManager.AddPasswordAsync(model.UserId, model.Password);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = UserMessageId.ChangeUser });
             }
 
             ViewBag.Roles = new SelectList(db.Roles.AsEnumerable().ToList(),
@@ -208,7 +218,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
             db.Users.Find(id).RemoveUserDetails();
             db.Users.Remove(myUser);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { Message = UserMessageId.RemoveUser });
         }
 
         protected override void Dispose(bool disposing)
@@ -218,6 +228,13 @@ namespace RentACar.Areas.ControlPanel.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public enum UserMessageId
+        {
+            ChangeUser,
+            RemoveUser,
+            Error
         }
     }
 }

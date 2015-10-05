@@ -12,12 +12,15 @@ namespace RentACar.Models
     {
         public Bill() { }
 
+        [Display(Name = "Rent ID")]
         [Key, ForeignKey("Rent")]
         public int RentId { get; set; }
 
+        [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Cost")]
         public double Cost { get; set; }
 
         public virtual Rent Rent { get; set; }

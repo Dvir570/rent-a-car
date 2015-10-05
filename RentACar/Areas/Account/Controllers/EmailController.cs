@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using RentACar.Areas.Account.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,9 +13,7 @@ namespace RentACar.Areas.Account.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public EmailController()
-        {
-        }
+        public EmailController() { }
 
         public EmailController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -51,7 +45,6 @@ namespace RentACar.Areas.Account.Controllers
             }
         }
 
-        //
         // GET: Account/Email
         public ActionResult Index(ManageMessageId? message)
         {
@@ -82,7 +75,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Email/ConfirmEmail
         public ActionResult ConfirmEmail(string confirmedEmail)
         {
@@ -97,7 +89,6 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // GET: /Account/Email/SendConfirmationEmail
         public async Task<ActionResult> SendConfirmationEmail(ManageMessageId? message)
         {
@@ -115,14 +106,12 @@ namespace RentACar.Areas.Account.Controllers
             return RedirectToAction("Index", "Email", new { area = "Account", Message = ManageMessageId.SentConfirmationEmail });
         }
 
-        //
         // GET: /Account/Email/ChangeEmail
         public ActionResult ChangeEmail()
         {
             return View();
         }
 
-        //
         // POST: /Account/Email/ChangeEmail
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -181,7 +170,6 @@ namespace RentACar.Areas.Account.Controllers
             base.Dispose(disposing);
         }
 
-        //
         // Helpers
         private void AddErrors(IdentityResult result)
         {

@@ -2,14 +2,9 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RentACar.Areas.Account.Models;
-using RentACar.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace RentACar.Areas.Account.Controllers
 {
@@ -19,9 +14,7 @@ namespace RentACar.Areas.Account.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public SettingsController()
-        {
-        }
+        public SettingsController() { }
 
         public SettingsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -81,14 +74,12 @@ namespace RentACar.Areas.Account.Controllers
             return View();
         }
 
-        //
         // GET: /Account/Settings/ChangeUsername
         public ActionResult ChangeUsername()
         {
             return View();
         }
 
-        //
         // POST: /Account/Settings/ChangeUsername
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,14 +112,12 @@ namespace RentACar.Areas.Account.Controllers
             }
         }
 
-        //
         // GET: /Account/Settings/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
         // POST: /Account/Settings/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -152,7 +141,6 @@ namespace RentACar.Areas.Account.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Settings/DeleteAccount
         public ActionResult DeleteAccount()
         {
@@ -216,7 +204,6 @@ namespace RentACar.Areas.Account.Controllers
             base.Dispose(disposing);
         }
 
-        //
         // Helpers
         private IAuthenticationManager AuthenticationManager
         {

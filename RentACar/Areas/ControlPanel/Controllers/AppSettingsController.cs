@@ -1,9 +1,6 @@
 ﻿using RentACar.Areas.ControlPanel.Models;
 using RentACar.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace RentACar.Areas.ControlPanel.Controllers
@@ -50,6 +47,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
             return View(model);
         }
 
+        // POST: ControlPanel/Application/ChangeEmail
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeEmail(ApplicationEmailViewModel model)

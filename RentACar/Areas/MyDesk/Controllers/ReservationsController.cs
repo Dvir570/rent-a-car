@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
 
@@ -92,7 +91,7 @@ namespace RentACar.Areas.MyDesk.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(db.Cars.Find(reservation.CarId).isAvailable())
+                if(db.Cars.Find(reservation.CarId).isAvailable() && reservation.CheckDate())
                 {
                     db.Reservations.Add(reservation);
                     await db.SaveChangesAsync();
@@ -147,7 +146,7 @@ namespace RentACar.Areas.MyDesk.Controllers
             if (ModelState.IsValid)
             {
                 var car = db.Cars.Find(reservation.CarId);
-                if(car.isAvailable())
+                if(car.isAvailable() && reservation.CheckDate())
                 {
                     db.Entry(reservation).State = EntityState.Modified;
                     await db.SaveChangesAsync();
@@ -214,10 +213,11 @@ namespace RentACar.Areas.MyDesk.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult RentIt(Reservation reservation, DateTime endDate)
         {
             var oldReservation = db.Reservations.Find(reservation.ReservationId);
-
+            
             db.Rents.Add(new Rent
             {
                 Car = reservation.Car,
@@ -228,6 +228,8 @@ namespace RentACar.Areas.MyDesk.Controllers
                 User = reservation.User,
                 UserId = reservation.UserId
             });
+
+            oldReservation.StartRenting();
 
             db.Reservations.Remove(oldReservation);
             db.SaveChanges();

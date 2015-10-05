@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
 using Microsoft.AspNet.Identity;
@@ -18,8 +16,25 @@ namespace RentACar.Areas.MyRents.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyRents/Reservations
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(ReservationMessageId? message)
         {
+            ViewBag.StatusMessage =
+                message == ReservationMessageId.ReservationAdded ? "Reservation has been successfully added."
+                : message == ReservationMessageId.ReservationEdited ? "Reservation has been successfully edited."
+                : message == ReservationMessageId.ReservationDeleted ? "Reservation has been successfully deleted."
+                : message == ReservationMessageId.ReservationError ? "Reservation was not successfull. Capacity is full."
+                : message == ReservationMessageId.Error ? "An error has occurred."
+                : "";
+
+            if (message == ReservationMessageId.Error || message == ReservationMessageId.ReservationError)
+            {
+                ViewBag.StatusClass = "alert-danger";
+            }
+            else
+            {
+                ViewBag.StatusClass = "alert-success";
+            }
+
             var userId = User.Identity.GetUserId<int>();
 
             var reservations = db.Reservations.Include(r => r.Car).Include(r => r.User).Where(m => m.UserId == userId);
@@ -50,11 +65,11 @@ namespace RentACar.Areas.MyRents.Controllers
         {
             reservation.UserId = User.Identity.GetUserId<int>();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && reservation.CheckDate())
             {
                 db.Reservations.Add(reservation);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = ReservationMessageId.ReservationAdded });
             }
 
             IEnumerable<Car> cars = db.Cars
@@ -107,11 +122,11 @@ namespace RentACar.Areas.MyRents.Controllers
         {
             reservation.UserId = User.Identity.GetUserId<int>();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && reservation.CheckDate())
             {
                 db.Entry(reservation).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { Message = ReservationMessageId.ReservationEdited });
             }
 
             IEnumerable<Car> cars = db.Cars
@@ -151,7 +166,7 @@ namespace RentACar.Areas.MyRents.Controllers
             Reservation reservation = await db.Reservations.FindAsync(id);
             db.Reservations.Remove(reservation);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { Message = ReservationMessageId.ReservationDeleted });
         }
 
         protected override void Dispose(bool disposing)
@@ -161,6 +176,15 @@ namespace RentACar.Areas.MyRents.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public enum ReservationMessageId
+        {
+            ReservationAdded,
+            ReservationEdited,
+            ReservationDeleted,
+            ReservationError,
+            Error
         }
     }
 }
