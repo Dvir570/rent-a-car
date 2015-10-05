@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace RentACar.Areas.ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ControlPanel/Users
-        public async Task<ActionResult> Index(UserMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, UserMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == UserMessageId.ChangeUser ? "User has been successfully changed."
@@ -61,6 +62,23 @@ namespace RentACar.Areas.ControlPanel.Controllers
                     userList.Add(user);
                 }
             }
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+            ViewBag.SortByUsername =
+                sortOrder == "SortByUsernameAsc" ? "SortByUsernameDesc" : "SortByUsernameAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByIdAsc":
+                    return View(userList.OrderBy(m => m.UserId));
+                case "SortByIdDesc":
+                    return View(userList.OrderByDescending(m => m.UserId));
+                case "SortByUsernameAsc":
+                    return View(userList.OrderBy(m => m.UserName));
+                case "SortByUsernameDesc":
+                    return View(userList.OrderByDescending(m => m.UserName));
+            }
+
             return View(userList);
         }
 

@@ -1,9 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RentACar.Models;
+using System.Linq;
 
 namespace RentACar.Areas.MyDesk.Controllers
 {
@@ -13,7 +15,7 @@ namespace RentACar.Areas.MyDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyDesk/Cars
-        public async Task<ActionResult> Index(CarMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, CarMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == CarMessageId.CarAdded ? "Car has been successfully added."
@@ -32,6 +34,17 @@ namespace RentACar.Areas.MyDesk.Controllers
             }
 
             var cars = db.Cars.Include(c => c.Brand).Include(c => c.Type);
+
+            ViewBag.SortByName =
+                sortOrder == "SortByNameAsc" ? "SortByNameDesc" : "SortByNameAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByNameAsc":
+                    return View(await cars.OrderBy(m => m.Brand.Name).ThenBy(m => m.Model).ToListAsync());
+                case "SortByNameDesc":
+                    return View(await cars.OrderByDescending(m => m.Brand.Name).ThenByDescending(m => m.Model).ToListAsync());
+            }
             return View(await cars.ToListAsync());
         }
 

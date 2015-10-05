@@ -16,7 +16,7 @@ namespace RentACar.Areas.MyDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyDesk/Reservations
-        public async Task<ActionResult> Index(ReservationMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, ReservationMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ReservationMessageId.ReservationAdded ? "Reservation has been successfully added."
@@ -36,9 +36,24 @@ namespace RentACar.Areas.MyDesk.Controllers
                 ViewBag.StatusClass = "alert-success";
             }
 
-
             var res = db.Reservations.ToList();
             var reservations = db.Reservations.Include(r => r.Car).Include(r => r.User);
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+            ViewBag.SortByDate =
+                sortOrder == "SortByDateAsc" ? "SortByDateDesc" : "SortByDateAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByIdAsc":
+                    return View(await reservations.OrderBy(m => m.ReservationId).ToListAsync());
+                case "SortByIdDesc":
+                    return View(await reservations.OrderByDescending(m => m.ReservationId).ToListAsync());
+                case "SortByDateAsc":
+                    return View(await reservations.OrderBy(m => m.Date).ToListAsync());
+                case "SortByDateDesc":
+                    return View(await reservations.OrderByDescending(m => m.Date).ToListAsync());
+            }
 
             return View(await reservations.ToListAsync());
         }

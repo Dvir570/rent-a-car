@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,10 +15,26 @@ namespace RentACar.Areas.MyRents.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyRents/Bills
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder)
         {
             var userId = User.Identity.GetUserId<int>();
             var bills = db.Bills.Include(b => b.Rent).Where(b => b.Rent.UserId == userId);
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+            ViewBag.SortByDate =
+                sortOrder == "SortByDateAsc" ? "SortByDateDesc" : "SortByDateAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByIdAsc":
+                    return View(await bills.OrderBy(m => m.RentId).ToListAsync());
+                case "SortByIdDesc":
+                    return View(await bills.OrderByDescending(m => m.RentId).ToListAsync());
+                case "SortByDateAsc":
+                    return View(await bills.OrderBy(m => m.Date).ToListAsync());
+                case "SortByDateDesc":
+                    return View(await bills.OrderByDescending(m => m.Date).ToListAsync());
+            }
             return View(await bills.ToListAsync());
         }
 

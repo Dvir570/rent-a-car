@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace RentACar.Areas.MyDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyDesk/Rents
-        public async Task<ActionResult> Index(RentMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, RentMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == RentMessageId.AddRent ? "Rent has been successfully added."
@@ -35,6 +36,23 @@ namespace RentACar.Areas.MyDesk.Controllers
             }
 
             var rents = db.Rents.Include(r => r.Bill).Include(r => r.Car).Include(r => r.User);
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+            ViewBag.SortByDate =
+                sortOrder == "SortByDateAsc" ? "SortByDateDesc" : "SortByDateAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByIdAsc":
+                    return View(await rents.OrderBy(m => m.RentId).ToListAsync());
+                case "SortByIdDesc":
+                    return View(await rents.OrderByDescending(m => m.RentId).ToListAsync());
+                case "SortByDateAsc":
+                    return View(await rents.OrderBy(m => m.StartDate).ToListAsync());
+                case "SortByDateDesc":
+                    return View(await rents.OrderByDescending(m => m.StartDate).ToListAsync());
+            }
+
             return View(await rents.ToListAsync());
         }
 

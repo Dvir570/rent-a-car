@@ -33,7 +33,7 @@
                                     @Html.DisplayNameFor(model => model.Car.Model)
                                 </th>
                                 <th class="text-center">
-                                    @Html.DisplayNameFor(model => model.Date)
+                                    @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.SortByDate })
                                 </th>
                                 <th class="text-center">
                                     Actions

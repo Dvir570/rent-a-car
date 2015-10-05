@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace RentACar.Areas.MyRents.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyRents/Reservations
-        public async Task<ActionResult> Index(ReservationMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, ReservationMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ReservationMessageId.ReservationAdded ? "Reservation has been successfully added."
@@ -38,6 +39,16 @@ namespace RentACar.Areas.MyRents.Controllers
             var userId = User.Identity.GetUserId<int>();
 
             var reservations = db.Reservations.Include(r => r.Car).Include(r => r.User).Where(m => m.UserId == userId);
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByDateAsc":
+                    return View(await reservations.OrderBy(m => m.Date).ToListAsync());
+                case "SortByDateDesc":
+                    return View(await reservations.OrderByDescending(m => m.Date).ToListAsync());
+            }
             return View(await reservations.ToListAsync());
         }
 

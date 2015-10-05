@@ -10,8 +10,9 @@
         {
             <div class="col-md-4">
                 <div class="well well-lg text-center">
-                    <p>
-                        <img src="item.ImageUrl" class="brand-img" />
+                    <p style="max-height: 220px;">
+                        <img src="@item.ImageUrl" class="img-responsive" alt="Car image"
+                         style="margin: 10px auto 20px auto; max-height: 160px; width: auto;" />
                     </p>
                     <p style="font-weight: bold;">
                         @Html.DisplayFor(modelItem => item.Brand.Name)
@@ -19,6 +20,9 @@
                     </p>
                     <p>
                         @Html.DisplayFor(modelItem => item.CostPerDay) USD per day
+                    </p>
+                    <p>
+                        @Html.ActionLink("Select car", "Create", "Reservations", new { area = "MyRents", id = item.CarId }, new { @class = "btn btn-primary" })
                     </p>
                 </div>
             </div>

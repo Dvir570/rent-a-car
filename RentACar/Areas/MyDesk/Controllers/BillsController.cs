@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using RentACar.Models;
+using System.Linq;
 
 namespace RentACar.Areas.MyDesk.Controllers
 {
@@ -13,7 +14,7 @@ namespace RentACar.Areas.MyDesk.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MyDesk/Bills
-        public async Task<ActionResult> Index(BillMessageId? message)
+        public async Task<ActionResult> Index(string sortOrder, BillMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == BillMessageId.AddBill ? "Bill has been successfully added."
@@ -33,6 +34,23 @@ namespace RentACar.Areas.MyDesk.Controllers
             }
 
             var bills = db.Bills.Include(b => b.Rent);
+
+            ViewBag.SortById = String.IsNullOrEmpty(sortOrder) ? "SortByIdDesc" : "SortByIdAsc";
+            ViewBag.SortByDate =
+                sortOrder == "SortByDateAsc" ? "SortByDateDesc" : "SortByDateAsc";
+
+            switch (sortOrder)
+            {
+                case "SortByIdAsc":
+                    return View(await bills.OrderBy(m => m.RentId).ToListAsync());
+                case "SortByIdDesc":
+                    return View(await bills.OrderByDescending(m => m.RentId).ToListAsync());
+                case "SortByDateAsc":
+                    return View(await bills.OrderBy(m => m.Date).ToListAsync());
+                case "SortByDateDesc":
+                    return View(await bills.OrderByDescending(m => m.Date).ToListAsync());
+            }
+
             return View(await bills.ToListAsync());
         }
 

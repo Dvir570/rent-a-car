@@ -28,7 +28,7 @@
                     <table class="table table-hover table-striped">
                         <tr>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.Brand.Name)
+                                @Html.ActionLink("Brand", "Index", new { sortOrder = ViewBag.SortByName })
                             </th>
                             <th class="text-center">
                                 @Html.DisplayNameFor(model => model.Model)

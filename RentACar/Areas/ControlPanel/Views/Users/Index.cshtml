@@ -25,10 +25,10 @@
                     <table class="table table-striped table-hover text-center">
                         <tr>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.UserId)
+                                @Html.ActionLink("User ID", "Index", new { sortOrder = ViewBag.SortById })
                             </th>
                             <th class="text-center">
-                                @Html.DisplayNameFor(model => model.UserName)
+                                @Html.ActionLink("Username", "Index", new { sortOrder = ViewBag.SortByUsername })
                             </th>
                             <th class="text-center">
                                 @Html.DisplayNameFor(model => model.FirstName)
