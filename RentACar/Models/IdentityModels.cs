@@ -15,11 +15,11 @@ namespace RentACar.Models
         public virtual IEnumerable<Rent> Rents { get; set; }
         public virtual IEnumerable<Reservation> Reservations { get; set; }
 
-        public bool AddUserDetails()
+        public bool AddUserDetails(string firstName, string lastName)
         {
             try
             {
-                UserDetails userDetails = new UserDetails(this.Id);
+                UserDetails userDetails = new UserDetails(this.Id, firstName, lastName);
                 using (var db = new ApplicationDbContext())
                 {
                     db.UserDetails.Add(userDetails);

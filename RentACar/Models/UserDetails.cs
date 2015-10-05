@@ -23,9 +23,11 @@ namespace RentACar.Models
 
         public UserDetails() { }
 
-        public UserDetails(int userId)
+        public UserDetails(int userId, string firstName, string lastName)
         {
             this.UserId = userId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
     }
 }
